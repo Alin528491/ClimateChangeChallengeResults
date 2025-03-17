@@ -39,57 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // === BACKDOOR SYSTEM: "ABG FINDER" TEXT AS SECRET BUTTON ===
-    let clickCount = 0;
-    let clickTimer;
-
-    const abgFinderLogo = document.querySelector(".navbar .logo, .navbar h1, .abg-finder-text"); // Adjust to match your structure
-
-    if (abgFinderLogo) {
-        console.log("🟢 ABG FINDER text detected as backdoor trigger.");
-
-        // **Make sure it's clickable**
-        abgFinderLogo.style.cursor = "pointer";
-
-        abgFinderLogo.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevents default behavior
-            clickCount++;
-            console.log(`🔎 Click detected: ${clickCount}`);
-
-            if (clickCount === 1) {
-                clickTimer = setTimeout(() => {
-                    clickCount = 0;
-                    console.log("🔄 Redirecting to home page.");
-                    window.location.href = "index.html"; // Change this if needed
-                }, 1000); // If only 1 click in 1 sec, go to home
-            }
-
-            if (clickCount >= 4) {
-                clearTimeout(clickTimer);
-                clickCount = 0;
-                console.log("🔑 Backdoor activated!");
-                openKeypad();
-            }
-        });
-    } else {
-        console.warn("⚠️ ABG FINDER text not found.");
-    }
-
-    function openKeypad() {
-        const keypadOverlay = document.getElementById("keypadOverlay");
-        if (keypadOverlay) {
-            keypadOverlay.style.display = "flex";
-            document.getElementById("pinInput").value = "";
-            console.log("🔓 Keypad displayed.");
-        } else {
-            console.error("❌ Keypad overlay element not found.");
-        }
-    }
-
-    function closeKeypad() {
-        document.getElementById("keypadOverlay").style.display = "none";
-    }
-
     // === FIXED: KEYPAD FUNCTIONALITY ===
     const pinInput = document.getElementById("pinInput");
     const submitPin = document.getElementById("submitPin");
@@ -105,11 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    backspace.addEventListener("click", function () {
+    backspace?.addEventListener("click", function () {
         pinInput.value = pinInput.value.slice(0, -1);
     });
 
-    submitPin.addEventListener("click", function () {
+    submitPin?.addEventListener("click", function () {
         if (pinInput.value === correctPin) {
             console.log("✅ Correct PIN entered. Redirecting...");
             window.location.href = "admin.html";
@@ -204,5 +153,81 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("❌ Closing graph modal...");
         document.getElementById("graphModal").style.display = "none";
     });
+
+    // === CLIMATE CHALLENGE RESULTS CHARTS ===
+    const grade4Chart = new Chart(document.getElementById("grade4Chart"), {
+        type: "bar",
+        data: {
+            labels: ["Advisory 1", "Advisory 2", "Advisory 3", "Advisory 4", "Advisory 5"],
+            datasets: [
+                {
+                    label: "Completed",
+                    data: [30, 45, 60, 20, 70],
+                    backgroundColor: "green",
+                    borderRadius: 4
+                },
+                {
+                    label: "Not Completed",
+                    data: [70, 55, 40, 80, 30],
+                    backgroundColor: "red",
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            indexAxis: "y",
+            responsive: true,
+            scales: {
+                x: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: "Completion Rate (%)",
+                        color: "white"
+                    },
+                    ticks: { color: "white" },
+                    grid: { color: "gray" }
+                },
+                y: {
+                    ticks: { color: "white" },
+                    grid: { color: "gray" }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+    });
+
+    const emptyChartConfig = {
+        type: "bar",
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "No data yet",
+                    color: "white",
+                    font: { size: 18 }
+                },
+                legend: { display: false }
+            },
+            scales: {
+                x: { ticks: { color: "white" }, grid: { color: "gray" } },
+                y: { ticks: { color: "white" }, grid: { color: "gray" } }
+            }
+        }
+    };
+
+    new Chart(document.getElementById("grade5Chart"), emptyChartConfig);
+    new Chart(document.getElementById("grade6Chart"), emptyChartConfig);
 
 });

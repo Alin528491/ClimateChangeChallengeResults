@@ -53,53 +53,29 @@
                 <h2 class="home-subtitle">RESULTS</h2> 
             </section>
 
-            <!-- ABG Hotspots Section -->
+            <!-- Climate Challenge Results Section -->
             <section id="hotspots" class="section">
-                <h2 class="section-title">ABG Hotspots</h2>
-                
-                <!-- Color Legend -->
-                <div class="legend">
-                    <span class="legend-item" style="background-color: red;">High</span>
-                    <span class="legend-item" style="background-color: orange;">Medium</span>
-                    <span class="legend-item" style="background-color: yellow;">Low</span>
+                <h2 class="section-title">Climate Challenge Results</h2>
+
+                <!-- Grade 4 -->
+                <div class="grade-section">
+                    <h3 class="section-subtitle">Grade 4</h3>
+                    <canvas id="grade4Chart" class="result-chart"></canvas>
                 </div>
 
-                <!-- Last Updated Timestamp -->
-                <p class="last-updated">Last Updated: <span id="timestamp"></span></p>
+                <!-- Grade 5 -->
+                <div class="grade-section">
+                    <h3 class="section-subtitle">Grade 5</h3>
+                    <canvas id="grade5Chart" class="result-chart"></canvas>
+                </div>
 
-                <div class="heatmap-container">
-                    <div class="heatmap-grid">
-                        <button class="heatmap-cell" id="Cafeteria">Cafeteria</button>
-                        <button class="heatmap-cell" id="Upper Grind">Upper Grind</button>
-                        <button class="heatmap-cell" id="Swimming Pool">Swimming Pool</button>
-                        <button class="heatmap-cell" id="Tennis Court">Tennis Court</button>
-                        <button class="heatmap-cell" id="Breeze Way">Breeze Way</button>
-                        <button class="heatmap-cell" id="Rajendra">Rajendra</button>
-                    </div>
+                <!-- Grade 6 -->
+                <div class="grade-section">
+                    <h3 class="section-subtitle">Grade 6</h3>
+                    <canvas id="grade6Chart" class="result-chart"></canvas>
                 </div>
             </section>
 
-        </div>
-    </div>
-
-    <!-- Graph Modal -->
-    <div id="graphModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeGraph">&times;</span>
-            <h2 id="modalTitle">Location Name</h2>
-            <canvas id="detailGraph"></canvas>
-        </div>
-    </div>
-
-    <!-- Admin Backdoor Modal -->
-    <div id="adminModal" class="modal">
-        <div class="modal-content">
-            <h2>Enter PIN</h2>
-            <div id="pinContainer">
-                <input type="password" id="pinInput" maxlength="4">
-                <button id="submitPin">Enter</button>
-            </div>
-            <span class="close" id="closeAdmin">&times;</span>
         </div>
     </div>
 
