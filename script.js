@@ -29,16 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // === CHART DATA AND CREATION ===
     const grade4AdvisoryLabels = ["Mr. Crimi", "Ms. Joyce", "Ms. Bruce / Ms. Purcell", "Ms. Meritt", "Mr. Kroot"];
-    const grade5AdvisoryLabels = [];
-    const grade6AdvisoryLabels = [];
+    const grade5AdvisoryLabels = ["Ms. Smith", "Mr. Johnson", "Ms. Lee", "Mr. Brown"];
+    const grade6AdvisoryLabels = ["Ms. Taylor", "Mr. Anderson", "Ms. Davis", "Mr. Wilson"];
 
     // Update these arrays to change the data
     const grade4Data = [20, 30, 64, 36]; // Example data for Grade 4
-    const grade5Data = []; // Example data for Grade 5
-    const grade6Data = []; // Example data for Grade 6
+    const grade5Data = [50, 60, 70, 80]; // Example data for Grade 5
+    const grade6Data = [40, 50, 60, 70]; // Example data for Grade 6
 
     // Function to create a chart
-    function createChart(chartId, data, leadingAdvisoryId, hasData = true) {
+    function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
         const chart = new Chart(document.getElementById(chartId), {
             type: "bar",
             data: {
@@ -49,12 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             label: "Completed",
                             data: data,
                             backgroundColor: "green",
-                            borderRadius: 4
-                        },
-                        {
-                            label: "Not Completed",
-                            data: advisoryLabels.map((_, i) => 100 - data[i]),
-                            backgroundColor: "red",
                             borderRadius: 4
                         }
                     ]
@@ -113,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Create initial charts
-    createChart("grade4Chart", grade4Data, "leadingAdvisoryGrade4", grade4Data.length > 0);
-    createChart("grade5Chart", grade5Data, "leadingAdvisoryGrade5", grade5Data.length > 0);
-    createChart("grade6Chart", grade6Data, "leadingAdvisoryGrade6", grade6Data.length > 0);
+    createChart("grade4Chart", grade4Data, grade4AdvisoryLabels, "leadingAdvisoryGrade4", grade4Data.length > 0);
+    createChart("grade5Chart", grade5Data, grade5AdvisoryLabels, "leadingAdvisoryGrade5", grade5Data.length > 0);
+    createChart("grade6Chart", grade6Data, grade6AdvisoryLabels, "leadingAdvisoryGrade6", grade6Data.length > 0);
 });
