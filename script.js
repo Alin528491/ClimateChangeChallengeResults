@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // === CHART DATA AND CREATION ===
-    const advisoryLabels = ["Advisory 1", "Advisory 2", "Advisory 3", "Advisory 4", "Advisory 5"];
+    const advisoryLabels = ["Mr. Crimi", "Ms. Joyce", "Ms. Bruce / Ms. Purcell", "Ms. Meritt", "Mr. Kroot"];
 
     // Update these arrays to change the data
     const grade4Data = [20, 30, 64, 36,]; // Example data for Grade 4
