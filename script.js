@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const advisoryLabels = ["Advisory 1", "Advisory 2", "Advisory 3", "Advisory 4", "Advisory 5"];
 
     // Update these arrays to change the data
-    const grade4Data = [100, 23, 45, 34, 56]; // Example data for Grade 4
-    const grade5Data = [20, 30, 40, 50, 60]; // Example data for Grade 5
-    const grade6Data = [15, 25, 35, 45, 55]; // Example data for Grade 6
+    const grade4Data = [20, 30, 64, 36,]; // Example data for Grade 4
+    const grade5Data = []; // Example data for Grade 5
+    const grade6Data = []; // Example data for Grade 6
 
     // Function to create a chart
     function createChart(chartId, data, leadingAdvisoryId, hasData = true) {
