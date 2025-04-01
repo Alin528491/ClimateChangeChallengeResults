@@ -23,19 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     } else {
-        console.warn("⚠️ Loading screen not found.");
+        console.warn("Loading screen not found.");
         smoothWrapper.style.opacity = 1; // Fallback: Show the main content
     }
 
-    // === CHART DATA AND CREATION ===
     const grade4AdvisoryLabels = ["Mr. Crimi", "Ms. Joyce", "Ms. Bruce / Ms. Purcell", "Ms. Meritt", "Mr. Kroot"];
     const grade5AdvisoryLabels = [];
     const grade6AdvisoryLabels = [];
 
-    // Update these arrays to change the data
-    const grade4Data = [20, 30, 64, 36]; // Example data for Grade 4
-    const grade5Data = []; // Example data for Grade 5
-    const grade6Data = []; // Example data for Grade 6
+    const grade4Data = [20, 30, 64, 36, 17];
+    const grade5Data = [];
+    const grade6Data = [];
 
     // Function to create a chart
     function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
