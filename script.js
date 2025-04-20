@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const grade5AdvisoryLabels = [];
     const grade6AdvisoryLabels = [];
 
-    const grade4Data = [20, 30, 64, 36, 17];
+    const grade4Data = [0, 0, 3, 5, 0];
     const grade5Data = [];
     const grade6Data = [];
 
