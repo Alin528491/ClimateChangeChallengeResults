@@ -27,15 +27,41 @@ document.addEventListener("DOMContentLoaded", function () {
         smoothWrapper.style.opacity = 1; // Fallback: Show the main content
     }
 
-    const grade4AdvisoryLabels = ["Mr. Crimi", "Ms. Joyce", "Ms. Bruce / Ms. Purcell", "Ms. Meritt", "Mr. Kroot"];
     const grade5AdvisoryLabels = [];
     const grade6AdvisoryLabels = [];
-
-    const grade4Data = [0, 0, 3, 5, 0];
     const grade5Data = [];
     const grade6Data = [];
 
-    // Function to create a chart
+    // === FETCH LIVE GRADE 4 DATA FROM GOOGLE SHEETS ===
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfqRPiNPeD4rH50atVjcnOS5h9dnIJU9NHfMu7pOBXXMnHTWhXyzYHJIVbNj93pw/pub?gid=452885745&single=true&output=csv";
+
+    fetch(sheetURL)
+        .then(res => res.text())
+        .then(csv => {
+            const rows = csv.trim().split("\n").map(r => r.split(","));
+            const headers = rows[0];
+            const dataRows = rows.slice(1);
+
+            const grade4AdvisoryLabels = [];
+            const grade4Data = [];
+
+            dataRows.forEach(row => {
+                const name = row[0].trim();
+                const count = parseInt(row[1]);
+
+                if (!name.includes("NA") && !name.includes("Reject") && !isNaN(count)) {
+                    grade4AdvisoryLabels.push(name);
+                    grade4Data.push(count);
+                }
+            });
+
+            createChart("grade4Chart", grade4Data, grade4AdvisoryLabels, "leadingAdvisoryGrade4", grade4Data.length > 0);
+        })
+        .catch(error => {
+            console.error("❌ Failed to fetch Grade 4 data:", error);
+        });
+
+    // === Chart Creation Function ===
     function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
         const chart = new Chart(document.getElementById(chartId), {
             type: "bar",
@@ -104,8 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Create initial charts
-    createChart("grade4Chart", grade4Data, grade4AdvisoryLabels, "leadingAdvisoryGrade4", grade4Data.length > 0);
+    // Still render empty Grade 5 & 6 charts (optional)
     createChart("grade5Chart", grade5Data, grade5AdvisoryLabels, "leadingAdvisoryGrade5", grade5Data.length > 0);
     createChart("grade6Chart", grade6Data, grade6AdvisoryLabels, "leadingAdvisoryGrade6", grade6Data.length > 0);
 });
