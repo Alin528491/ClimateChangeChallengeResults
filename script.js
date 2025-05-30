@@ -35,6 +35,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const grade5Data = [];
     const grade6Data = [];
 
+    // === INSERTED: Fetch data from Google Sheets ===
+    fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQfqRPiNPeD4rH50atVjcnOS5h9dnIJU9NHfMu7pOBXXMnHTWhXyzYHJIVbNj93pw/pub?gid=452885745&single=true&output=csv")
+        .then(response => response.text())
+        .then(csv => {
+            const rows = csv.trim().split("\n").map(r => r.split(","));
+            const headers = rows[0];
+            const dataRows = rows.slice(1);
+
+            const advisoryLabels = [];
+            const advisoryData = [];
+
+            dataRows.forEach(row => {
+                const name = row[0].trim();
+                const count = parseInt(row[1]);
+
+                if (!name.includes("NA") && !name.includes("Reject") && !isNaN(count)) {
+                    advisoryLabels.push(name);
+                    advisoryData.push(count);
+                }
+            });
+
+            createChart("grade4Chart", advisoryData, advisoryLabels, "leadingAdvisoryGrade4", advisoryData.length > 0);
+        })
+        .catch(error => {
+            console.error("Error fetching Google Sheets data:", error);
+        });
+
     // Function to create a chart
     function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
         const chart = new Chart(document.getElementById(chartId), {
@@ -104,8 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Create initial charts
-    createChart("grade4Chart", grade4Data, grade4AdvisoryLabels, "leadingAdvisoryGrade4", grade4Data.length > 0);
+    // Create empty Grade 5 and 6 charts
     createChart("grade5Chart", grade5Data, grade5AdvisoryLabels, "leadingAdvisoryGrade5", grade5Data.length > 0);
     createChart("grade6Chart", grade6Data, grade6AdvisoryLabels, "leadingAdvisoryGrade6", grade6Data.length > 0);
 });
