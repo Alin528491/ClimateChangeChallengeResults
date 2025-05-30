@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const grade6Data = [];
 
     // === FETCH LIVE GRADE 4 DATA FROM GOOGLE SHEETS ===
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfqRPiNPeD4rH50atVjcnOS5h9dnIJU9NHfMu7pOBXXMnHTWhXyzYHJIVbNj93pw/pub?gid=452885745&single=true&output=csv";
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/...../pub?gid=452885745&single=true&output=csv";
 
     fetch(sheetURL)
         .then(res => res.text())
