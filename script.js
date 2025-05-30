@@ -29,16 +29,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const grade5AdvisoryLabels = [];
     const grade6AdvisoryLabels = [];
+
     const grade5Data = [];
     const grade6Data = [];
 
     // === FETCH LIVE GRADE 4 DATA FROM GOOGLE SHEETS ===
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/...../pub?gid=452885745&single=true&output=csv";
-
-    fetch(sheetURL)
-        .then(res => res.text())
+    fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQfqRPiNPeD4rH50atVjcnOS5h9dnIJU9NHfMu7pOBXXMnHTWhXyzYHJIVbNj93pw/pub?gid=452885745&single=true&output=csv")
+        .then(response => response.text())
         .then(csv => {
-            const rows = csv.trim().split("\n").map(r => r.split(","));
+            const rows = csv.trim().split("\n").map(r =>
+                r.split(",").map(cell => cell.replace(/^"|"$/g, "").trim())
+            );
+
             const headers = rows[0];
             const dataRows = rows.slice(1);
 
@@ -46,10 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const grade4Data = [];
 
             dataRows.forEach(row => {
-                const name = row[0].trim();
+                const name = row[0];
                 const count = parseInt(row[1]);
 
-                if (!name.includes("NA") && !name.includes("Reject") && !isNaN(count)) {
+                if (
+                    name &&
+                    !name.includes("NA") &&
+                    !name.includes("Reject") &&
+                    !isNaN(count) &&
+                    count > 0
+                ) {
                     grade4AdvisoryLabels.push(name);
                     grade4Data.push(count);
                 }
@@ -61,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("❌ Failed to fetch Grade 4 data:", error);
         });
 
-    // === Chart Creation Function ===
+    // === CHART CREATION FUNCTION ===
     function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
         const chart = new Chart(document.getElementById(chartId), {
             type: "bar",
@@ -130,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Still render empty Grade 5 & 6 charts (optional)
+    // Create empty Grade 5 and 6 charts
     createChart("grade5Chart", grade5Data, grade5AdvisoryLabels, "leadingAdvisoryGrade5", grade5Data.length > 0);
     createChart("grade6Chart", grade6Data, grade6AdvisoryLabels, "leadingAdvisoryGrade6", grade6Data.length > 0);
 });
