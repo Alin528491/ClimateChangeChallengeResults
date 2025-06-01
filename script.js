@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("🚀 Page loaded. Running scripts...");
+    console.log("Page loaded. Running scripts...");
 
-    // === LOADING SCREEN LOGIC ===
     const loadingScreen = document.getElementById("loading-screen");
     const smoothWrapper = document.getElementById("smooth-wrapper");
 
@@ -17,23 +16,21 @@ document.addEventListener("DOMContentLoaded", function () {
             duration: 1.5,
             delay: 2,
             onComplete: () => {
-                console.log("✅ Loading screen animation complete.");
-                loadingScreen.style.display = "none"; // Hide the loading screen
-                smoothWrapper.style.opacity = 1; // Show the main content
+                console.log("Loading screen animation complete.");
+                loadingScreen.style.display = "none";
+                smoothWrapper.style.opacity = 1;
             }
         });
     } else {
         console.warn("Loading screen not found.");
-        smoothWrapper.style.opacity = 1; // Fallback: Show the main content
+        smoothWrapper.style.opacity = 1;
     }
 
     const grade5AdvisoryLabels = [];
     const grade6AdvisoryLabels = [];
-
     const grade5Data = [];
     const grade6Data = [];
 
-    // === FETCH LIVE GRADE 4 DATA FROM GOOGLE SHEETS RESULTS TAB ===
     fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-NxKzcwfrfuuBXdhYEZFY_-hR8jBNtWuW8od6u_C1RHzrbBFiPrQeGyNY93NBd4sCBeGY1iIHKgZT/pub?gid=452885745&single=true&output=csv")
         .then(response => response.text())
         .then(csv => {
@@ -63,16 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            console.log("✅ Grade 4 Labels:", grade4AdvisoryLabels);
-            console.log("✅ Grade 4 Data:", grade4Data);
+            console.log("Grade 4 Labels:", grade4AdvisoryLabels);
+            console.log("Grade 4 Data:", grade4Data);
 
             createChart("grade4Chart", grade4Data, grade4AdvisoryLabels, "leadingAdvisoryGrade4", grade4Data.length > 0);
         })
         .catch(error => {
-            console.error("❌ Failed to fetch Grade 4 data:", error);
+            console.error("Failed to fetch Grade 4 data:", error);
         });
 
-    // === CHART FUNCTION ===
     function createChart(chartId, data, advisoryLabels, leadingAdvisoryId, hasData = true) {
         const chart = new Chart(document.getElementById(chartId), {
             type: "bar",
@@ -125,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Update the leading advisory
         const leadingAdvisoryElement = document.getElementById(leadingAdvisoryId);
         if (hasData) {
             const maxCompletion = Math.max(...data);
@@ -141,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Create empty charts for Grade 5 and 6
     createChart("grade5Chart", grade5Data, grade5AdvisoryLabels, "leadingAdvisoryGrade5", false);
     createChart("grade6Chart", grade6Data, grade6AdvisoryLabels, "leadingAdvisoryGrade6", false);
+    //Tung Tung Tung Tung Sahur
 });
